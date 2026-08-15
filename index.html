@@ -10,13 +10,218 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800;900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800;900&family=Manrope:wght@300;400;500;600&family=Sora:wght@300;400;600;700&display=swap"
     rel="stylesheet">
+  <style>
+    .new-hero-title {
+        font-family: 'Sora', sans-serif !important;
+        text-align: left;
+        width: 100%;
+    }
+    .new-hero-title .line-1 {
+        display: block;
+        font-weight: 300;
+        font-size: clamp(2.4rem, 4.5vw, 4.2rem);
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.5rem;
+        text-align: left;
+    }
+    .new-hero-title .line-2 {
+        display: block;
+        font-weight: 600;
+        font-size: clamp(3.5rem, 7.2vw, 7rem);
+        color: #FFFFFF;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        text-align: left;
+    }
+    .new-hero-title .accent-word {
+        font-style: italic;
+        font-weight: 400;
+        position: relative;
+        display: inline-block;
+        color: #FFFFFF;
+    }
+    .new-hero-title .accent-word::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 12%;
+        width: 100%;
+        height: 1px;
+        background-color: #E88D66;
+        opacity: 0.6;
+    }
+    .new-hero-eyebrow {
+        font-family: 'Manrope', sans-serif !important;
+        font-size: 0.75rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.15em !important;
+        color: #E88D66 !important;
+        margin-bottom: 1.5rem !important;
+        text-transform: uppercase !important;
+        display: block !important;
+        text-align: left !important;
+    }
+    .hero-sub.new-hero-sub {
+        font-family: 'Manrope', sans-serif !important;
+        font-weight: 400 !important;
+        color: rgba(255, 255, 255, 0.7) !important;
+        text-align: left;
+        width: 100%;
+        display: block;
+        font-size: 1.05rem !important;
+        line-height: 1.6 !important;
+    }
+    .new-hero-btns {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1rem;
+        margin-top: 2rem;
+        flex-wrap: wrap;
+    }
+    .new-hero-btn {
+        font-family: 'Manrope', sans-serif !important;
+        font-size: 0.82rem;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        padding: 16px 30px;
+        border-radius: 10px;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        cursor: pointer;
+    }
+    .new-hero-btn-primary {
+        background-color: #FFFFFF !important;
+        color: #111318 !important;
+        border: 1px solid #FFFFFF !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    }
+    .new-hero-btn-primary:hover {
+        background-color: transparent !important;
+        color: #FFFFFF !important;
+        transform: translateY(-2px);
+    }
+    .new-hero-btn-secondary {
+        background-color: transparent !important;
+        color: rgba(255, 255, 255, 0.8) !important;
+        border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    }
+    .new-hero-btn-secondary:hover {
+        border-color: rgba(255, 255, 255, 0.5) !important;
+        color: #FFFFFF !important;
+        transform: translateY(-2px);
+    }
+    /* Subtle Noise Texture */
+    .noise {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 999;
+        opacity: 0.01;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+    /* Hero Background & Glow */
+    .hero {
+        background-color: #111318 !important;
+        position: relative;
+        overflow: hidden;
+    }
+    .background-glow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at 80% 20%, 
+            rgba(232, 141, 102, 0.08) 0%, 
+            rgba(204, 105, 61, 0.03) 30%, 
+            #111318 70%
+        );
+        z-index: 0;
+        pointer-events: none;
+    }
+    /* Abstract Geometric Form */
+    .abstract-shape {
+        position: absolute;
+        right: -5%;
+        top: 15%;
+        width: 50vw;
+        height: 50vw;
+        max-width: 600px;
+        max-height: 600px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, rgba(28, 20, 16, 0.8) 0%, rgba(17, 19, 24, 0.1) 100%);
+        border: 1px solid rgba(232, 141, 102, 0.05);
+        backdrop-filter: blur(10px);
+        z-index: 0;
+        transform: scaleY(1.2) rotate(15deg);
+        opacity: 0.6;
+        pointer-events: none;
+    }
+    /* Marquee: Transparent background, faster scroll, subtle logo opacity */
+    .marquee-section {
+        background: transparent !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.04) !important;
+    }
+    .marquee-track {
+        animation: scroll 14s linear infinite !important;
+    }
+    .mlogo img {
+        filter: brightness(0) invert(1) opacity(0.3) !important;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    }
+    .mlogo img:hover {
+        filter: brightness(0) invert(1) opacity(0.9) !important;
+        transform: scale(1.05);
+    }
+    /* Top Navbar Button: Modern semi-transparent / elegant glass styling */
+    .nav-right .btn {
+        font-family: 'Manrope', sans-serif !important;
+        font-weight: 600 !important;
+        border-radius: 10px !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        color: #FFFFFF !important;
+        border: 1px solid rgba(255, 255, 255, 0.18) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        box-shadow: none !important;
+        transition: all 0.3s ease !important;
+    }
+    .nav-right .btn:hover {
+        background: rgba(255, 255, 255, 0.16) !important;
+        color: #FFFFFF !important;
+        border-color: rgba(255, 255, 255, 0.4) !important;
+        transform: translateY(-2px);
+    }
+    header.scrolled .nav-right .btn {
+        background: rgba(17, 19, 24, 0.06) !important;
+        color: #111318 !important;
+        border-color: rgba(17, 19, 24, 0.15) !important;
+    }
+    header.scrolled .nav-right .btn:hover {
+        background: #111318 !important;
+        color: #FFFFFF !important;
+        border-color: #111318 !important;
+    }
+  </style>
   <link rel="stylesheet" href="css/style.css">
   <script>document.documentElement.classList.add('js');</script>
 </head>
 
 <body>
+  <div class="noise"></div>
 
   <div class="topbar">
     <div class="wrap topbar-inner">
@@ -125,52 +330,39 @@
     <!-- HERO -->
     <section class="hero">
 
-      <div class="hero-bg" style="z-index: 1;">
-        <div class="starfield"></div>
-        <span class="star s1"></span><span class="star s2"></span><span class="star s3"></span><span
-          class="star s4"></span><span class="star s5"></span><span class="star s6"></span>
-      </div>
-      <div class="planet-glow"></div>
-      <div class="hero-light" id="heroLight"></div>
+      <div class="background-glow"></div>
+      <div class="abstract-shape"></div>
       <div class="wrap hero-wrap">
-        <h1 class="reveal">markasına değer verenlerin<br><span class="o">sosyal medya ajansı</span></h1>
-        <div class="btns reveal d2">
-          <a href="#iletisim" class="btn btn-primary">Ücretsiz Görüşme Planla</a>
+        <div class="eyebrow new-hero-eyebrow reveal">WEB • SOSYAL MEDYA • PAZARLAMA • PRODÜKSİYON</div>
+        <h1 class="reveal new-hero-title">
+          <span class="line-1">markasına <span class="accent-word">değer</span> verenlerin</span>
+          <span class="line-2">sosyal medya ajansı</span>
+        </h1>
+        <p class="hero-sub reveal d2 new-hero-sub">Sosyal medyadan marka kimliğine, video prodüksiyondan web tasarımına kadar tam kapasiteyle yanınızdayız.</p>
+        <div class="btns reveal d3 new-hero-btns">
+          <a href="#iletisim" class="new-hero-btn new-hero-btn-primary">ÜCRETSİZ GÖRÜŞME PLANLA</a>
+          <a href="#hizmetler" class="new-hero-btn new-hero-btn-secondary">HİZMETLERİ KEŞFEDİN</a>
         </div>
       </div>
-      <div class="trust-row reveal d3">
-        <div class="avatar-cluster">
-          <img class="av" src="images/logos/rentav.png" alt="Rentav">
-          <img class="av" src="images/logos/kuantum.png" alt="Kuantum">
-          <img class="av" src="images/logos/altoran.png" alt="Altoran">
-        </div>
-        <div class="trust-text"><b>4.9 <svg class="star" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8-5.3-2.8-5.3 2.8 1-5.8L3.5 9.2l5.9-.9L12 3z" />
-            </svg></b> · 20+ Marka Bize Güveniyor!</div>
-      </div>
-    </section>
-
-    <!-- CLIENT LOGO MARQUEE -->
-    <section class="marquee-section">
-      <div class="wrap">
-        <p class="marquee-label">20+ MARKA BİZE GÜVENİYOR</p>
-      </div>
-      <div class="marquee" aria-hidden="false">
-        <div class="marquee-track" id="marqueeTrack">
-          <div class="mlogo"><img src="images/logos/rentav.png" alt="Rentav"></div>
-          <div class="mlogo"><img src="images/logos/kuantum.png" alt="Kuantum Eğitim Kurumları"></div>
-          <div class="mlogo"><img src="images/logos/altoran.png" alt="Altoran İnşaat"></div>
-          <div class="mlogo"><img src="images/logos/bug_doctor.png" alt="Bug Doctor"></div>
-          <div class="mlogo"><img src="images/logos/mr_barber.png" alt="Mr. Barber"></div>
-          <div class="mlogo"><img src="images/logos/olventia.png" alt="Olventia Suites"></div>
-          <div class="mlogo"><img src="images/logos/skz_aluminium.png" alt="SKZ Aluminium"></div>
-          <div class="mlogo"><img src="images/logos/erkol.png" alt="Erkol A.Ş"></div>
+      <!-- CLIENT LOGO MARQUEE -->
+      <div class="marquee-section">
+        <div class="marquee" aria-hidden="false">
+          <div class="marquee-track" id="marqueeTrack">
+            <div class="mlogo"><img src="images/logos/rentav.png" alt="Rentav"></div>
+            <div class="mlogo"><img src="images/logos/kuantum.png" alt="Kuantum Eğitim Kurumları"></div>
+            <div class="mlogo"><img src="images/logos/altoran.png" alt="Altoran İnşaat"></div>
+            <div class="mlogo"><img src="images/logos/bug_doctor.png" alt="Bug Doctor"></div>
+            <div class="mlogo"><img src="images/logos/mr_barber.png" alt="Mr. Barber"></div>
+            <div class="mlogo"><img src="images/logos/olventia.png" alt="Olventia Suites"></div>
+            <div class="mlogo"><img src="images/logos/skz_aluminium.png" alt="SKZ Aluminium"></div>
+            <div class="mlogo"><img src="images/logos/erkol.png" alt="Erkol A.Ş"></div>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- HİZMETLER -->
-    <section id="hizmetler" class="section" style="padding-top: 60px;">
+    <section id="hizmetler" class="section section-soft" style="padding-top: 60px;">
       <div class="wrap">
         <div class="eyebrow">HİZMETLERİMİZ</div>
         <h2 class="sec-title">Neler Yapıyoruz</h2>
@@ -254,20 +446,6 @@
     </section>
 
 
-
-    <!-- NEDEN BİZ -->
-    <section id="neden-biz" class="why-hero">
-      <div class="why-hero-sticky">
-        <div class="why-hero-inner" id="whyInner">
-          <div class="why-hero-eyebrow" id="whyEyebrow">NEDEN DIGITOLMEDIA</div>
-          <h2 class="why-hero-title" id="whyTitle">Markanız İçin Tasarlıyoruz,<br>Birlikte Büyüyoruz.</h2>
-        </div>
-        <div class="why-hero-reveal" id="whyReveal">
-          <p>Sosyal medyadan marka kimliğine, video prodüksiyondan web tasarımına kadar<br>tam kapasiteyle yanınızdayız.
-          </p>
-        </div>
-      </div>
-    </section>
 
     <!-- SOSYAL MEDYA EKOSİSTEMİ (3D) -->
     <section id="sosyal-ekosistem" class="social-ecosystem">
@@ -662,87 +840,192 @@
     </section>
 
     <!-- TESTIMONIALS -->
-    <section class="section">
+    <section class="testi-marquee-section" id="musteriler" aria-label="Müşteri Yorumları">
       <div class="wrap">
         <div class="eyebrow">MÜŞTERİLERİMİZ</div>
         <h2 class="sec-title">Neler Söylüyor?</h2>
         <p class="sec-sub">Digitol Ajans ile çalışan markaların yorumları.</p>
       </div>
 
-      <div class="testi-bento-grid">
-        <!-- 1. Rentav (Wide) -->
-        <div class="testi-card testi-wide">
-          <div class="quote-mark">“</div>
-          <p>"Rentav olarak sosyal medya görsellerimizin kalitesi ve teslim hızı fark yarattı. Digitol Ajans, kendi
-            ekibimizin bir parçası gibi çalışıyor."</p>
-          <div class="testi-who">
-            <img src="images/logos/rentav.png" alt="Rentav" class="testi-logo">
-            <div>
-              <b>Rentav</b>
-              <span>Filo & Oto Kiralama</span>
+      <!-- Satır 1: Sola kayan -->
+      <div class="testi-track-wrapper">
+        <div class="testi-row testi-row-1" id="testiRow1">
+          <!-- SET A -->
+          <div class="testi-card">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"Rentav olarak sosyal medya görsellerimizin kalitesi ve teslim hızı fark yarattı. Digitol Ajans, kendi ekibimizin bir parçası gibi çalışıyor."</p>
+            <div class="testi-who">
+              <img src="images/logos/rentav.png" alt="Rentav" class="testi-logo">
+              <div><b>Rentav</b><span>Filo & Oto Kiralama</span></div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"Kuantum Eğitim olarak LGS dönemi kampanyalarımızda ürettikleri postlar hem estetik hem de dönüşüm odaklıydı. Teslim tarihlerine tam uyum sağladılar."</p>
+            <div class="testi-who">
+              <img src="images/logos/kuantum.png" alt="Kuantum Eğitim Kurumları" class="testi-logo">
+              <div><b>Kuantum Eğitim Kurumları</b><span>Eğitim</span></div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"Altoran İnşaat için tasarlanan kurumsal logo, markamızı tam olarak yansıtıyor. Süreç boyunca her revizyon isteğimize hızlıca cevap aldık."</p>
+            <div class="testi-who">
+              <img src="images/logos/altoran.png" alt="Altoran İnşaat" class="testi-logo">
+              <div><b>Altoran İnşaat</b><span>İnşaat</span></div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"Bug Doctor olarak logomuzun akılda kalıcılığı sayesinde müşteri tanınırlığımız arttı. Digitol ekibi markamızı gerçekten anladı."</p>
+            <div class="testi-who">
+              <img src="images/logos/bug_doctor.png" alt="Bug Doctor" class="testi-logo">
+              <div><b>Bug Doctor</b><span>İlaçlama</span></div>
+            </div>
+          </div>
+          <!-- Additional testimonial based on existing client marquee -->
+          <div class="testi-card">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"Olventia Suites olarak dijital varlığımızı güçlendirmek için Digitol ile çalıştık. Hem sosyal medya tasarımlarımız hem de kurumsal kimliğimiz çok daha profesyonel bir görünüm kazandı."</p>
+            <div class="testi-who">
+              <img src="images/logos/olventia.png" alt="Olventia Suites" class="testi-logo">
+              <div><b>Olventia Suites</b><span>Otelcilik</span></div>
+            </div>
+          </div>
+          <!-- SET A Duplicate for seamless loop -->
+          <div class="testi-card" aria-hidden="true">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"Rentav olarak sosyal medya görsellerimizin kalitesi ve teslim hızı fark yarattı. Digitol Ajans, kendi ekibimizin bir parçası gibi çalışıyor."</p>
+            <div class="testi-who">
+              <img src="images/logos/rentav.png" alt="Rentav" class="testi-logo">
+              <div><b>Rentav</b><span>Filo & Oto Kiralama</span></div>
+            </div>
+          </div>
+          <div class="testi-card" aria-hidden="true">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"Kuantum Eğitim olarak LGS dönemi kampanyalarımızda ürettikleri postlar hem estetik hem de dönüşüm odaklıydı. Teslim tarihlerine tam uyum sağladılar."</p>
+            <div class="testi-who">
+              <img src="images/logos/kuantum.png" alt="Kuantum Eğitim Kurumları" class="testi-logo">
+              <div><b>Kuantum Eğitim Kurumları</b><span>Eğitim</span></div>
+            </div>
+          </div>
+          <div class="testi-card" aria-hidden="true">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"Altoran İnşaat için tasarlanan kurumsal logo, markamızı tam olarak yansıtıyor. Süreç boyunca her revizyon isteğimize hızlıca cevap aldık."</p>
+            <div class="testi-who">
+              <img src="images/logos/altoran.png" alt="Altoran İnşaat" class="testi-logo">
+              <div><b>Altoran İnşaat</b><span>İnşaat</span></div>
+            </div>
+          </div>
+          <div class="testi-card" aria-hidden="true">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"Bug Doctor olarak logomuzun akılda kalıcılığı sayesinde müşteri tanınırlığımız arttı. Digitol ekibi markamızı gerçekten anladı."</p>
+            <div class="testi-who">
+              <img src="images/logos/bug_doctor.png" alt="Bug Doctor" class="testi-logo">
+              <div><b>Bug Doctor</b><span>İlaçlama</span></div>
+            </div>
+          </div>
+          <div class="testi-card" aria-hidden="true">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"Olventia Suites olarak dijital varlığımızı güçlendirmek için Digitol ile çalıştık. Hem sosyal medya tasarımlarımız hem de kurumsal kimliğimiz çok daha profesyonel bir görünüm kazandı."</p>
+            <div class="testi-who">
+              <img src="images/logos/olventia.png" alt="Olventia Suites" class="testi-logo">
+              <div><b>Olventia Suites</b><span>Otelcilik</span></div>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- 2. Kuantum Eğitim Kurumları -->
-        <div class="testi-card">
-          <div class="quote-mark">“</div>
-          <p>"Kuantum Eğitim olarak LGS dönemi kampanyalarımızda ürettikleri postlar hem estetik hem de dönüşüm
-            odaklıydı. Teslim tarihlerine tam uyum sağladılar."</p>
-          <div class="testi-who">
-            <img src="images/logos/kuantum.png" alt="Kuantum Eğitim" class="testi-logo">
-            <div>
-              <b>Kuantum Eğitim Kurumları</b>
-              <span>Eğitim</span>
+      <!-- Satır 2: Sağa kayan -->
+      <div class="testi-track-wrapper">
+        <div class="testi-row testi-row-2" id="testiRow2">
+          <!-- SET B -->
+          <div class="testi-card">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"Mr. Barber olarak şık ve zarif logomuz, salonumuzun kurumsal kimliğine tam oturdu. Profesyonel ve dakik bir ekip."</p>
+            <div class="testi-who">
+              <img src="images/logos/mr_barber.png" alt="Mr. Barber" class="testi-logo">
+              <div><b>Mr. Barber</b><span>Erkek Kuaförü</span></div>
+            </div>
+          </div>
+          <!-- Additional testimonial based on existing client marquee -->
+          <div class="testi-card">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"SKZ Aluminium olarak web sitemiz ve sosyal medya içeriklerimiz için Digitol ile çalıştık. Hızlı geri dönüşleri ve temiz tasarım anlayışları ile süreci kolayca yönettik."</p>
+            <div class="testi-who">
+              <img src="images/logos/skz_aluminium.png" alt="SKZ Aluminium" class="testi-logo">
+              <div><b>SKZ Aluminium</b><span>Alüminyum Sistemleri</span></div>
+            </div>
+          </div>
+          <!-- Additional testimonial based on existing client marquee -->
+          <div class="testi-card">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"Erkol A.Ş. olarak kurumsal kimliğimizi yenilerken Digitol'ün sunduğu çözümler hem modern hem de sektörümüze uygundu. Süreç boyunca iletişim oldukça güçlüydü."</p>
+            <div class="testi-who">
+              <img src="images/logos/erkol.png" alt="Erkol A.Ş." class="testi-logo">
+              <div><b>Erkol A.Ş.</b><span>Sanayi</span></div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"Kuantum Eğitim olarak LGS dönemi kampanyalarımızda ürettikleri postlar hem estetik hem de dönüşüm odaklıydı. Teslim tarihlerine tam uyum sağladılar."</p>
+            <div class="testi-who">
+              <img src="images/logos/kuantum.png" alt="Kuantum Eğitim Kurumları" class="testi-logo">
+              <div><b>Kuantum Eğitim Kurumları</b><span>Eğitim</span></div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"Altoran İnşaat için tasarlanan kurumsal logo, markamızı tam olarak yansıtıyor. Süreç boyunca her revizyon isteğimize hızlıca cevap aldık."</p>
+            <div class="testi-who">
+              <img src="images/logos/altoran.png" alt="Altoran İnşaat" class="testi-logo">
+              <div><b>Altoran İnşaat</b><span>İnşaat</span></div>
+            </div>
+          </div>
+          <!-- SET B Duplicate for seamless loop -->
+          <div class="testi-card" aria-hidden="true">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"Mr. Barber olarak şık ve zarif logomuz, salonumuzun kurumsal kimliğine tam oturdu. Profesyonel ve dakik bir ekip."</p>
+            <div class="testi-who">
+              <img src="images/logos/mr_barber.png" alt="Mr. Barber" class="testi-logo">
+              <div><b>Mr. Barber</b><span>Erkek Kuaförü</span></div>
+            </div>
+          </div>
+          <div class="testi-card" aria-hidden="true">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"SKZ Aluminium olarak web sitemiz ve sosyal medya içeriklerimiz için Digitol ile çalıştık. Hızlı geri dönüşleri ve temiz tasarım anlayışları ile süreci kolayca yönettik."</p>
+            <div class="testi-who">
+              <img src="images/logos/skz_aluminium.png" alt="SKZ Aluminium" class="testi-logo">
+              <div><b>SKZ Aluminium</b><span>Alüminyum Sistemleri</span></div>
+            </div>
+          </div>
+          <div class="testi-card" aria-hidden="true">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"Erkol A.Ş. olarak kurumsal kimliğimizi yenilerken Digitol'ün sunduğu çözümler hem modern hem de sektörümüze uygundu. Süreç boyunca iletişim oldukça güçlüydü."</p>
+            <div class="testi-who">
+              <img src="images/logos/erkol.png" alt="Erkol A.Ş." class="testi-logo">
+              <div><b>Erkol A.Ş.</b><span>Sanayi</span></div>
+            </div>
+          </div>
+          <div class="testi-card" aria-hidden="true">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"Kuantum Eğitim olarak LGS dönemi kampanyalarımızda ürettikleri postlar hem estetik hem de dönüşüm odaklıydı. Teslim tarihlerine tam uyum sağladılar."</p>
+            <div class="testi-who">
+              <img src="images/logos/kuantum.png" alt="Kuantum Eğitim Kurumları" class="testi-logo">
+              <div><b>Kuantum Eğitim Kurumları</b><span>Eğitim</span></div>
+            </div>
+          </div>
+          <div class="testi-card" aria-hidden="true">
+            <div class="testi-quote-icon" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M9.33 20C7.49 20 6 18.43 6 16.5V13c0-3.87 2.93-7 6.67-7v2.67C10.62 8.67 9.33 10.69 9.33 13v1h3.34V20H9.33zm10.67 0c-1.84 0-3.33-1.57-3.33-3.5V13c0-3.87 2.93-7 6.66-7v2.67c-1.84 0-3.33 2.02-3.33 4.33v1h3.33V20H20z" fill="currentColor"/></svg></div>
+            <p>"Altoran İnşaat için tasarlanan kurumsal logo, markamızı tam olarak yansıtıyor. Süreç boyunca her revizyon isteğimize hızlıca cevap aldık."</p>
+            <div class="testi-who">
+              <img src="images/logos/altoran.png" alt="Altoran İnşaat" class="testi-logo">
+              <div><b>Altoran İnşaat</b><span>İnşaat</span></div>
             </div>
           </div>
         </div>
-
-        <!-- 3. Altoran İnşaat -->
-        <div class="testi-card">
-          <div class="quote-mark">“</div>
-          <p>"Altoran İnşaat için tasarlanan kurumsal logo, markamızı tam olarak yansıtıyor. Süreç boyunca her revizyon
-            isteğimize hızlıca cevap aldık."</p>
-          <div class="testi-who">
-            <img src="images/logos/altoran.png" alt="Altoran İnşaat" class="testi-logo">
-            <div>
-              <b>Altoran İnşaat</b>
-              <span>İnşaat</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 4. Bug Doctor -->
-        <div class="testi-card">
-          <div class="quote-mark">“</div>
-          <p>"Bug Doctor olarak logomuzun akılda kalıcılığı sayesinde müşteri tanınırlığımız arttı. Digitol ekibi
-            markamızı gerçekten anladı."</p>
-          <div class="testi-who">
-            <img src="images/logos/bug_doctor.png" alt="Bug Doctor" class="testi-logo">
-            <div>
-              <b>Bug Doctor</b>
-              <span>İlaçlama</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 5. Mr. Barber -->
-        <div class="testi-card">
-          <div class="quote-mark">“</div>
-          <p>"Mr. Barber olarak şık ve zarif logomuz, salonumuzun kurumsal kimliğine tam oturdu. Profesyonel ve dakik
-            bir ekip."</p>
-          <div class="testi-who">
-            <img src="images/logos/mr_barber.png" alt="Mr. Barber" class="testi-logo">
-            <div>
-              <b>Mr. Barber</b>
-              <span>Erkek Kuaförü</span>
-            </div>
-          </div>
-        </div>
-
       </div>
     </section>
-
     <!-- SSS -->
     <section id="sss" class="section faq-dark-section">
       <div class="wrap faq-wrap">

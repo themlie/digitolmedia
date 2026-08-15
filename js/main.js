@@ -132,7 +132,7 @@ const revealSelectors = [
   '.eyebrow', '.sec-title', '.sec-sub',
   '.why-grid p', '.save-card',
   '.svc', '.pkg',
-  '.testi-card', '.faq-item',
+  '.faq-item',
   '.cline', '#contactForm',
   '.marquee-label'
 ];
@@ -140,7 +140,7 @@ document.querySelectorAll(revealSelectors.join(',')).forEach(el => {
   el.classList.add('reveal');
 });
 // aynı grid içindeki kartlara kademeli gecikme ver
-document.querySelectorAll('.services, .packages, .contact-list, .testi-bento-grid').forEach(group => {
+document.querySelectorAll('.services, .packages, .contact-list').forEach(group => {
   group.querySelectorAll('.reveal').forEach((el, i) => {
     if (i % 4 === 1) el.classList.add('d1');
     else if (i % 4 === 2) el.classList.add('d2');
@@ -918,3 +918,34 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 5500);
   }
 });
+
+// --- TESTIMONIAL MARQUEE: Touch support (mobile tap to pause/resume) ---
+(function () {
+  const wrappers = document.querySelectorAll('.testi-track-wrapper');
+  if (!wrappers.length) return;
+
+  // Touch: tap to pause, tap again to resume; does NOT block vertical scroll
+  wrappers.forEach(function (wrapper) {
+    var paused = false;
+    var touchStartY = 0;
+    var touchStartX = 0;
+
+    wrapper.addEventListener('touchstart', function (e) {
+      touchStartY = e.touches[0].clientY;
+      touchStartX = e.touches[0].clientX;
+    }, { passive: true });
+
+    wrapper.addEventListener('touchend', function (e) {
+      var deltaY = Math.abs(e.changedTouches[0].clientY - touchStartY);
+      var deltaX = Math.abs(e.changedTouches[0].clientX - touchStartX);
+      // Only treat as a tap (not a scroll), small movement threshold
+      if (deltaY < 10 && deltaX < 10) {
+        paused = !paused;
+        var row = wrapper.querySelector('.testi-row');
+        if (row) {
+          row.style.animationPlayState = paused ? 'paused' : 'running';
+        }
+      }
+    }, { passive: true });
+  });
+})();
