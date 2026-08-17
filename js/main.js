@@ -285,13 +285,16 @@ if (appleShowcase && phone3d) {
     currentProgress += (targetProgress - currentProgress) * 0.08; // Lerp factor for smooth easing
     
     if (Math.abs(targetProgress - currentProgress) > 0.001) {
+      const isMobile = window.innerWidth <= 768;
       const rotY = -20 + (currentProgress * 80);
       const rotX = 5 + (currentProgress * 20);
-      const scale = 1 - (currentProgress * 0.3);
+      const baseScale = isMobile ? 0.72 : 1.0;
+      const scale = baseScale * (1 - (currentProgress * 0.25));
       
       if (appleText) {
-        appleText.style.opacity = 1 - (currentProgress * 2);
-        appleText.style.transform = `translateY(${currentProgress * -50}px)`;
+        const fadeRate = isMobile ? 3.5 : 2.0;
+        appleText.style.opacity = Math.max(0, 1 - (currentProgress * fadeRate));
+        appleText.style.transform = `translateY(${currentProgress * -35}px)`;
       }
       
       phone3d.style.transform = `scale(${scale}) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
@@ -344,40 +347,51 @@ if (mpShowcase && mpCenter && mpLeft && mpRight) {
       // 0.4 - 0.7 : Hold position, slight parallax.
       // 0.7 - 1.0 : All phones slide left and fade out to reveal section below.
       
+      const isMobile = window.innerWidth <= 768;
+      const isSmallMobile = window.innerWidth <= 480;
+
       let p1 = Math.min(currentP / 0.4, 1); 
       let p3 = Math.max(0, (currentP - 0.7) / 0.3); 
       
       if (mpText) {
-        mpText.style.opacity = Math.max(0, 1 - (currentP * 3));
-        mpText.style.transform = `translateY(${currentP * -50}px)`;
+        const textFadeRate = isMobile ? 4.5 : 3.0;
+        mpText.style.opacity = Math.max(0, 1 - (currentP * textFadeRate));
+        mpText.style.transform = `translateY(${currentP * -35}px)`;
       }
 
-      // Base Transforms
-      // Center: Starts scale 1, rotates slightly, scales down to 0.85
-      const cScale = 1 - (p1 * 0.15);
+      // Base Transforms & Responsive Offsets
+      const maxOffset = isSmallMobile ? 95 : (isMobile ? 140 : 360);
+      const startOffset = isMobile ? (window.innerWidth * 1.1) : 1200;
+      const baseScale = isSmallMobile ? 0.75 : (isMobile ? 0.85 : 1.0);
+      const centerEndScale = baseScale * (isMobile ? 0.92 : 0.85);
+
+      const cScale = baseScale - (p1 * (baseScale - centerEndScale));
       const cRotX = 5 + (currentP * 10);
       const cRotY = -15 + (currentP * 10);
-      const cTransX = p3 * -2000; 
+      const exitShift = isMobile ? -window.innerWidth * 1.5 : -2000;
+      const cTransX = p3 * exitShift; 
       
-      // Left: Starts way left (-1200px) and behind, slides in to -360px
-      const lTransXRaw = -1200 + (p1 * 840); 
-      const lTransX = lTransXRaw + (p3 * -2000);
-      const lTransZ = -200 + (p1 * 50); 
+      // Left: Slides in behind center phone
+      const lTransXRaw = -startOffset + (p1 * (startOffset - maxOffset)); 
+      const lTransX = lTransXRaw + (p3 * exitShift);
+      const lTransZ = isMobile ? (-80 + (p1 * 25)) : (-200 + (p1 * 50)); 
       const lRotY = 15 - (currentP * 5);
       
-      // Right: Starts way right (+1200px) and behind, slides in to +360px
-      const rTransXRaw = 1200 - (p1 * 840); 
-      const rTransX = rTransXRaw + (p3 * -2000);
-      const rTransZ = -100 + (p1 * 20);
+      // Right: Slides in behind center phone
+      const rTransXRaw = startOffset - (p1 * (startOffset - maxOffset)); 
+      const rTransX = rTransXRaw + (p3 * exitShift);
+      const rTransZ = isMobile ? (-50 + (p1 * 15)) : (-100 + (p1 * 20));
       const rRotY = -35 + (currentP * 5);
+
+      const sideScale = baseScale * 0.92;
 
       mpCenter.style.transform = `translate3d(${cTransX}px, 0, 0) rotateX(${cRotX}deg) rotateY(${cRotY}deg) scale(${cScale})`;
       mpCenter.style.opacity = 1 - p3;
 
-      mpLeft.style.transform = `translate3d(${lTransX}px, 0, ${lTransZ}px) rotateX(5deg) rotateY(${lRotY}deg) scale(0.9)`;
+      mpLeft.style.transform = `translate3d(${lTransX}px, 0, ${lTransZ}px) rotateX(5deg) rotateY(${lRotY}deg) scale(${sideScale})`;
       mpLeft.style.opacity = 1 - p3;
 
-      mpRight.style.transform = `translate3d(${rTransX}px, 0, ${rTransZ}px) rotateX(5deg) rotateY(${rRotY}deg) scale(0.9)`;
+      mpRight.style.transform = `translate3d(${rTransX}px, 0, ${rTransZ}px) rotateX(5deg) rotateY(${rRotY}deg) scale(${sideScale})`;
       mpRight.style.opacity = 1 - p3;
       
       // Move glares
@@ -400,7 +414,7 @@ if (mpShowcase && mpCenter && mpLeft && mpRight) {
   renderMp();
 }
 
-// Branding Presentation Showcase (Grafik Tasar�m Sayfas�)
+// Branding Presentation Showcase (Grafik Tasarım Sayfası)
 const brandingShowcase = document.getElementById("brandingShowcase");
 const presentationImgWrap = document.getElementById("presentationImgWrap");
 const presentationText = document.querySelector(".presentation-text");
@@ -479,24 +493,26 @@ if (brand3DShowcase && b3dLaptop) {
     if (Math.abs(pTarget - pCurrent) > 0.001) {
       if (brand3DText) {
         brand3DText.style.opacity = Math.max(0, 1 - (pCurrent * 2.5));
-        brand3DText.style.transform = "translateY(px)";
+        brand3DText.style.transform = `translateY(${pCurrent * -50}px)`;
       }
 
       const lapRotX = 25 - (pCurrent * 20);
       const lapRotY = -15 + (pCurrent * 15);
       const lapTransZ = pCurrent * 150;
-      b3dLaptop.style.transform = "translate3d(0, px, px) rotateX(deg) rotateY(deg)";
+      b3dLaptop.style.transform = `translate3d(0, 0, ${lapTransZ}px) rotateX(${lapRotX}deg) rotateY(${lapRotY}deg)`;
 
       if (b3dPhone) {
         const phRotX = 15 - (pCurrent * 10);
         const phRotY = -5 + (pCurrent * 15);
-        b3dPhone.style.transform = "translate3d(0, px, px) rotateX(deg) rotateY(deg)";
+        const phTransZ = pCurrent * 100;
+        b3dPhone.style.transform = `translate3d(0, 0, ${phTransZ}px) rotateX(${phRotX}deg) rotateY(${phRotY}deg)`;
       }
 
       if (b3dCard) {
         const cdRotX = 10 - (pCurrent * 10);
         const cdRotY = -25 + (pCurrent * 20);
-        b3dCard.style.transform = "translate3d(0, px, px) rotateX(deg) rotateY(deg)";
+        const cdTransZ = pCurrent * 80;
+        b3dCard.style.transform = `translate3d(0, 0, ${cdTransZ}px) rotateX(${cdRotX}deg) rotateY(${cdRotY}deg)`;
       }
     }
     
@@ -737,6 +753,27 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     }
   });
+
+  // Touch swipe support for mobile
+  let touchStartX = 0;
+  let touchStartY = 0;
+  container.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  container.addEventListener('touchend', (e) => {
+    const deltaX = e.changedTouches[0].clientX - touchStartX;
+    const deltaY = Math.abs(e.changedTouches[0].clientY - touchStartY);
+    if (Math.abs(deltaX) > 40 && deltaY < 70) {
+      if (deltaX < 0) {
+        activeIndex = (activeIndex + 1) % cards.length;
+      } else {
+        activeIndex = (activeIndex - 1 + cards.length) % cards.length;
+      }
+      updateStack();
+    }
+  }, { passive: true });
 
   // Initial call
   updateStack();
