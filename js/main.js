@@ -113,9 +113,12 @@ menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.c
 const track = document.getElementById('marqueeTrack');
 if (track) {
   // cloneNode kullanarak güvenli kopyalama (innerHTML yerine)
-  const clone = track.cloneNode(true);
-  clone.setAttribute('aria-hidden', 'true');
-  track.parentNode.appendChild(clone);
+  // kopyalar aynı track'in içine eklenir, yoksa ikinci bir satır oluşur
+  [...track.children].forEach(logo => {
+    const clone = logo.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    track.appendChild(clone);
+  });
 }
 
 // scroll reveal for work cards (.proj keeps its own .in effect)
