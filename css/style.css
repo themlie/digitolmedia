@@ -24,7 +24,8 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
+  /* clip: yatay taşmayı keser ama scroll container oluşturmaz (sticky bölümler çalışır) */
+  overflow-x: clip;
 }
 
 body {
@@ -32,7 +33,7 @@ body {
   background: var(--bg);
   color: var(--ink);
   line-height: 1.6;
-  overflow-x: hidden;
+  overflow-x: clip;
 }
 
 .wrap {
