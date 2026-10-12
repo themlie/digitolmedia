@@ -95,7 +95,7 @@ function CSSPhone() {
           <div className="mp-notch"></div>
           <div className="mp-content">
             <img
-              src="images/work/digtol_telefon.jpg"
+              src="images/work/digtol_telefon.webp"
               alt="Digitol"
               style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }}
             />
@@ -302,7 +302,7 @@ export default function GraphicScene({ domTarget }) {
         </mesh>
         <Html transform center occlude={false} position={[0, 0, 0.01]} distanceFactor={1.5} style={{ pointerEvents: 'none' }}>
           <div style={{ width: 440, height: 610, background: '#111', borderRadius: 16, overflow: 'hidden', padding: 12, display: 'flex', flexDirection: 'column' }}>
-            <div style={{ flex: 1, background: '#fff', borderRadius: 12, backgroundImage: 'url(images/work/profil.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
+            <div style={{ flex: 1, background: '#fff', borderRadius: 12, backgroundImage: 'url(images/work/profil.webp)', backgroundSize: 'cover', backgroundPosition: 'center' }} />
           </div>
         </Html>
         <SoftShadow width={4.0} height={5.2} />

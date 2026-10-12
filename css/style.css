@@ -2550,25 +2550,25 @@ footer {
 .svc-hero.svc-hero-social {
   background: 
     linear-gradient(to bottom, rgba(12, 7, 5, 0.3), rgba(12, 7, 5, 0.8)),
-    url('../images/hero/social_dashboard_tr.png') center/cover no-repeat;
+    url('../images/hero/social_dashboard_tr.webp') center/cover no-repeat;
 }
 
 .svc-hero.svc-hero-graphic {
   background: 
     linear-gradient(to bottom, rgba(12, 7, 5, 0.4), rgba(12, 7, 5, 0.9)),
-    url('../images/hero/skz_mockup_tr.png') center/cover no-repeat;
+    url('../images/hero/skz_mockup_tr.webp') center/cover no-repeat;
 }
 
 .svc-hero.svc-hero-web {
   background: 
     linear-gradient(to bottom, rgba(12, 7, 5, 0.3), rgba(12, 7, 5, 0.7)),
-    url('../images/hero/web_tasarim_hero.png') right center / cover no-repeat;
+    url('../images/hero/web_tasarim_hero.webp') right center / cover no-repeat;
 }
 
 .svc-hero.svc-hero-video {
   background: 
     linear-gradient(to bottom, rgba(12, 7, 5, 0.4), rgba(12, 7, 5, 0.9)),
-    url('../images/video_cekim_hero.png') center 80% / cover no-repeat;
+    url('../images/video_cekim_hero.webp') center 80% / cover no-repeat;
 }
 
 .svc-hero::before {

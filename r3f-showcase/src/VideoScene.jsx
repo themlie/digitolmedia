@@ -96,7 +96,7 @@ function CSSPhone() {
           <div className="mp-notch"></div>
           <div className="mp-content">
             <img
-              src="images/work/digtol_telefon.jpg"
+              src="images/work/digtol_telefon.webp"
               alt="Digitol"
               style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top', display: 'block' }}
             />
