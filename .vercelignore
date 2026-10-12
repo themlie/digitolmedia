@@ -1,0 +1,9 @@
+# Yayına gitmesi gerekmeyen dosyalar (Vercel bunları deploy etmez)
+r3f-showcase/
+.vscode/
+.agents/
+.claude/
+.htaccess
+_headers
+*.md
+showcase/

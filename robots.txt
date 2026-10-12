@@ -1,0 +1,6 @@
+# Digitol Ajans - Search Engine Directives
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://digitolmedia.com/sitemap.xml

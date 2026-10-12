@@ -1,0 +1,70 @@
+# ==============================================================================
+# DIGITOL MEDIA - SECURITY, PERFORMANCE & SERVER HARDENING (.htaccess)
+# ==============================================================================
+
+# 1. Dizin Listelemeyi Yasakla (Directory Browsing / Index Listing Block)
+Options -Indexes
+
+# 2. Hassas ve Gizli Dosyalara / Dizinlere Erişimi Yasakla (403 Forbidden)
+<FilesMatch "^\.|\.(bak|config|sql|fla|psd|ini|log|sh|inc|env|git|vscode)$|deneme\.html$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# .git ve .vscode dizinlerini tamamen engelle
+RedirectMatch 403 ^/(\.git|\.vscode|\.agents)
+
+# 3. HTTP Güvenlik Başlıkları (Security Headers)
+<IfModule mod_headers.c>
+    # Clickjacking Saldırılarına Karşı Koruma
+    Header always set X-Frame-Options "SAMEORIGIN"
+
+    # MIME-Type Sniffing Saldırılarına Karşı Koruma
+    Header always set X-Content-Type-Options "nosniff"
+
+    # XSS Filtresi (Eski Tarayıcılar İçin)
+    Header always set X-XSS-Protection "1; mode=block"
+
+    # Referrer Gizlilik Politikası
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Donanım İzinleri Politikası (Kamera, Mikrofon vb. kısıtlama)
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+    # Zorunlu HTTPS İletişimi (HSTS)
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+
+    # Content Security Policy (XSS ve veri enjeksiyonu koruması)
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob:; connect-src 'self' https://formsubmit.co; frame-ancestors 'none'; base-uri 'self'; form-action 'self' https://formsubmit.co;"
+</IfModule>
+
+# 4. Gzip / Brotli Sıkıştırma (Lighthouse Performance)
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript application/json application/xml image/svg+xml
+</IfModule>
+
+# 5. Tarayıcı Önbellekleme (Browser Caching / Cache-Control)
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+
+    # CSS & JavaScript
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType text/javascript "access plus 1 year"
+
+    # Görseller & Medya
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType video/mp4 "access plus 1 year"
+
+    # Web Fontları
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+</IfModule>
+
+# 6. UTF-8 Karakter Kodlaması Zorlama
+AddDefaultCharset UTF-8

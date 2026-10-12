@@ -8,3 +8,6 @@ build/
 .agents/
 .claude/
 skills-lock.json
+
+# Vitrin reposu ayrı tutuluyor
+showcase/

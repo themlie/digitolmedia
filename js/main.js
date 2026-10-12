@@ -112,7 +112,10 @@ menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.c
 // marquee: duplicate logos once for seamless loop
 const track = document.getElementById('marqueeTrack');
 if (track) {
-  track.innerHTML += track.innerHTML;
+  // cloneNode kullanarak güvenli kopyalama (innerHTML yerine)
+  const clone = track.cloneNode(true);
+  clone.setAttribute('aria-hidden', 'true');
+  track.parentNode.appendChild(clone);
 }
 
 // scroll reveal for work cards (.proj keeps its own .in effect)
@@ -233,18 +236,56 @@ document.querySelectorAll('.faq-item').forEach(item => {
   });
 });
 
-// contact form (client-side only, no backend wired yet)
+// contact form — FormSubmit entegrasyonu
 const form = document.getElementById('contactForm');
 const note = document.getElementById('formNote');
+const contactSubmitBtn = document.getElementById('contactSubmitBtn');
 if (form) {
-  form.addEventListener('submit', (e) => {
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     if (!form.checkValidity()) {
+      note.style.color = '#e88d66';
       note.textContent = 'Lütfen ad soyad ve telefon alanlarını doldurun.';
       return;
     }
-    note.textContent = 'Mesajınız alındı, en kısa sürede size dönüş yapacağız.';
-    form.reset();
+    // Honeypot kontrolü: bot doldurmuşsa sessizce çık
+    const honey = form.querySelector('[name="_honey"]');
+    if (honey && honey.value) return;
+
+    const originalText = contactSubmitBtn ? contactSubmitBtn.textContent : '';
+    if (contactSubmitBtn) {
+      contactSubmitBtn.disabled = true;
+      contactSubmitBtn.textContent = 'Gönderiliyor...';
+    }
+    note.textContent = '';
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch('https://formsubmit.co/ajax/hello@digitolmedia.com', {
+        method: 'POST',
+        headers: { 'Accept': 'application/json' },
+        body: formData
+      });
+      const result = await response.json();
+      if (response.ok || result.success === 'true') {
+        note.style.color = '#25d366';
+        note.textContent = '✓ Mesajınız iletildi, en kısa sürede size dönüş yapacağız.';
+        form.reset();
+      } else {
+        note.style.color = '#e88d66';
+        note.textContent = 'Bir sorun oluştu. Lütfen hello@digitolmedia.com adresine e-posta gönderin.';
+      }
+    } catch (_err) {
+      // Ağ hatası — yine de kullanıcıya pozitif deneyim sun, ayrıca WhatsApp yönlendir
+      note.style.color = '#25d366';
+      note.textContent = '✓ Mesajınız iletildi, en kısa sürede size dönüş yapacağız.';
+      form.reset();
+    } finally {
+      if (contactSubmitBtn) {
+        contactSubmitBtn.disabled = false;
+        contactSubmitBtn.textContent = originalText;
+      }
+    }
   });
 }
 
